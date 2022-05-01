@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title style="text-align: center;">
+      <div>
+        Seed Mart
+      </div>
+      <div *ngIf = "hideMap">
+        These are the seed recommendations based on your location and month of the year.
+      </div>
+    </ion-title>
+    <ion-buttons left *ngIf = "hideMap">
+     
+      <button ion-button icon-only (click)="dismiss()" class="my-style-for-modal">
+          <ion-icon name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content [ngSwitch] = "hideMap">
+  <ng-container *ngSwitchCase = 'false'>
+    <ion-fab top left color="primary">
+      <button ion-fab mini (click)="recommendationClick()">      
+        <ion-label>Seed recommendations</ion-label>
+      </button>
+    </ion-fab>    
+  </ng-container>
+  
+  <div #map id ="map" ></div>
+
+  <ng-container *ngSwitchCase = 'true'>    
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of items; let i = index">
+        <ion-item>
+          <h2>{{item}}</h2>          
+        </ion-item>
+        <ion-item-options>
+          <button ion-button color="secondary" icon-start>
+            <ion-icon name="add"></ion-icon>
+            Add to cart
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </ng-container>
+</ion-content>
